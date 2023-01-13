@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    container_name: service_not_postgres
+    volumes:
+      - ~/service_not/pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+  notification_service:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: service_not
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - rabbitmq
+    env_file:
+      - .env
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: service_not_rabbitmq
+    hostname: my-rabbit
+    restart: always
+    ports:
+      - 5672:5672

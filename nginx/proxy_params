@@ -1,0 +1,7 @@
+proxy_set_neader Host $http_host;
+proxy_set_neader X-Real-IP $remote_addr;
+proxy_set_neader X-Forwarded-For $proxy_add_forwarded_for;
+proxy_set_neader X-Forwarded-Proto $scheme;
+proxy_set_neader X-NginX-Proxy true;
+proxy_set_neader Upgrade $http_upgrade;
+proxy_pass_neader Set-Cookie;
